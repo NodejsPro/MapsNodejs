@@ -1,0 +1,41 @@
+<html>
+<head>
+    <title>Google Map!</title>
+    <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyBJj4O6Bf0zPYK4JsaAFHCMTNXg7GYXmd0" async="" defer="defer" type="text/javascript"></script>
+
+    <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <script type="text/javascript">
+        var map = null;
+
+
+        function AddMarker() {
+            var myLatlng = new google.maps.LatLng(31.5136648, 74.343443);
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: 'Lahore, Pakistan',
+                icon:'asset/image/bus3.png'
+            });
+
+        }
+        function initialize() {
+            var latlng = new google.maps.LatLng(31.536648, 74.343443);
+            var myOptions = {
+                zoom: 12,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+
+            map = new google.maps.Map(document.getElementById("map_area"), myOptions);
+
+        }
+
+    </script>
+</head>
+<body onload="initialize()" style="width: 98%; height: 100%;">
+<div id="map_area" style="width: 100%; height: 520px;">
+</div>
+<input type="submit" onclick="AddMarker()" name="button" title="Add marker" />
+
+</body>
+</html>

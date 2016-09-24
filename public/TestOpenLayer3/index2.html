@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Icon Symbolizer</title>
+    <link rel="stylesheet" href="asset/css/ol.css" type="text/css">
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="asset/js/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="asset/js/ol.js"></script>
+    <script src="asset/js/jquery-1.12.4.min.js"></script>
+    <link rel="stylesheet" href="asset/css/bootstrap.min.css">
+    <script src="asset/js/bootstrap.min.js"></script>
+    <style>
+        #map {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<div id="map" class="map"><div id="popup"></div></div>
+<div class="content-hiden" style="visibility: hidden">
+    <div class="row " style="margin-left: 0px; margin-right: 0px;">
+        <div id="div-8-col" class="border-graph" style="padding-bottom: 10px">
+            <div class="row" style="margin-left: 0px !important; margin-top: 5px">
+                <div class="col-sm-12 form-horizontal">
+                    <h4 class="label-vms" style="background-color: #6d6e70; margin-bottom: -5px;margin-top: 0px;width: 35%;height: 25px;font-size: 16px;">THÔNG TIN CHUNG</h4>
+                    <hr style="border-top-color: #939598;">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label label-vms">Tên<font color="red"><b>*</b></font></label>
+                        <div class="col-sm-5">
+                            <input id="vmsName" placeholder="Nhập tên bảng" type="text" name="" maxlength="100" value="" class="form-control input-sm vms-input">
+                        </div>
+                        <label class="col-sm-1 control-label label-vms">Loại<font color="red"><b>*</b></font></label>
+                        <div class="col-sm-3">
+                            <select id="vmsType" class="form-control input-sm vms-input">
+                                <option value="-1">--Loại biển--</option>
+                                <option value="0">Biển báo</option>
+                                <option value="1">Biển chỉ dẫn</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label label-vms">IP<font color="red"><b>*</b></font></label>
+                        <div class="col-sm-5">
+                            <input type="text" placeholder="Nhập IP" id="vmsIp" maxlength="20" class="form-control input-sm vms-input" placeholder="">
+                        </div>
+                        <label class="col-sm-1 control-label label-vms">Port<font color="red"><b>*</b></font></label>
+                        <div class="col-sm-3">
+                            <input type="text" placeholder="Nhập port" id="vmsPort" maxlength="6" class="form-control input-sm vms-input" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-1 label-vms" style="text-align: right; padding-left: 0px">Mô tả</div>
+                        <div class="col-sm-11" style="">
+                            <textarea id="vmsDesc" placeholder="Nhập mô tả" name="" rows="1" maxlength="200" class="form-control input-sm vms-input"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label label-vms">Bảng<font color="red"><b>*</b></font></label>
+                        <div class="col-sm-5">
+                            <select id="vmsVesionId" class="form-control input-sm vms-input">
+                            </select>
+                        </div>
+                    </div>
+                    <hr style="border-top-color: #939598;">
+                </div>
+                <div class="col-sm-12 form-horizontal">
+                    <div class="form-group">
+                        <div id= "vmsModel" class="col-sm-2 label-vms" style="text-align: right; padding-right: 0px; margin-left: -20px; text-align: center;">Model: ABC</div>
+                        <div id="vmsColor" class="col-sm-2 label-vms" style="text-align: right; padding-left: 0px; padding-right: 0px; margin-left: 10px; text-align: center;">Màu sắc: đa sắc</div>
+                        <div id="vmsVendor" class="col-sm-3 label-vms" style="text-align: right; padding-left: 5px; padding-right: 0px; text-align: center;">Nhà cung cấp: Sam Sung</div>
+                        <div id="vmsWidthx" class="col-sm-2 label-vms" style="text-align: right; padding-left: 5px; padding-right: 0px; text-align: center;">Rộng: 100 cm</div>
+                        <div id="vmsHeighx" class="col-sm-3 label-vms" style="padding-left: 5px; padding-right: 0px; text-align: center;">&nbsp;&nbsp; Cao: 56 cm</div>
+                    </div>
+                </div>
+                <div class="col-sm-12 form-horizontal">
+                    <h4 class="label-vms" style="background-color: #6d6e70;margin-bottom: -5px;margin-top: 0px;width: 30%;height: 25px;font-size: 14px;">THÔNG TIN TUYẾN</h4>
+                    <hr style="border-top-color: #939598;">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label label-vms">Tuyến<font color="red"><b>*</b></font></label>
+                        <div class="col-sm-5">
+                            <select id="vmsRoadId" class="form-control pointer input-sm vms-input"></select>
+                        </div>
+                        <label class="col-sm-1 control-label label-vms">Section<font color="red"><b>*</b></font>
+                        </label>
+                        <div class="col-sm-5">
+                            <select id="vmsSectionId" class="form-control pointer input-sm vms-input"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label label-vms">Link<font color="red"><b>*</b></font></label>
+                        <div class="col-sm-5">
+                            <select id="vmsLinkId" class="form-control pointer input-sm vms-input"></select>
+                        </div>
+                        <label class="col-sm-1 control-label label-vms">Làn<font color="red"><b>*</b></font></label>
+                        <div class="col-sm-5">
+                            <select id="vmsLaneId" class="form-control pointer input-sm vms-input">
+                                <option value="-1">--Chọn làn--</option>
+                                <option value="1">Làn 1</option>
+                                <option value="2">Làn 2</option>
+                                <option value="3">Làn 3</option>
+                                <option value="4">Làn 4</option>
+                                <option value="5">Làn 5</option>
+                                <option value="6">Làn 6</option>
+                                <option value="7">Làn 7</option>
+                                <option value="8">Làn 8</option>
+                                <option value="9">Làn 9</option>
+                                <option value="10">Làn 10</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label label-vms">Kinh độ</label>
+                        <div class="col-sm-2">
+                            <input id="vmsLongitude" placeholder="Nhập kinh độ" type="text" name="" value="" class="form-control input-sm vms-input">
+                        </div>
+                        <label class="col-sm-1 control-label label-vms">Vĩ độ</label>
+                        <div class="col-sm-2">
+                            <input id="vmsLatitude" placeholder="Nhập vĩ độ" type="text" name="" value="" class="form-control input-sm vms-input">
+                        </div>
+                        <label class="col-sm-1 control-label label-vms">Vị trí<font color="red"><b>*</b></font></label>
+                        <div class="col-sm-5">
+                            <label class="col-sm-1 control-label label-vms">KM</label>
+                            <div class="col-sm-5">
+                                <input id="vmsPositionFirst" type="text" maxlength="3" class="form-control input-sm vms-input">
+                            </div>
+                            <label class="col-sm-1 control-label label-vms" style="margin-left: -20px;">+</label>
+                            <div class="col-sm-5">
+                                <input id="vmsPositionSecond" type="text" maxlength="3" class="form-control input-sm vms-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id= "btnActionDiv" class="row" style="float: right; margin-right: 0px; margin-top: 20px">
+                <button type="button" id="btnAdd"
+                        class="btn btn-sm btn-info m-t-n-xs" style="margin-bottom: 0px; margin-right: 5px;color: white !important"
+                        data-dismiss="">Lưu lại</button>
+                <button type="button" id="btnResetData"
+                        class="btn btn-sm btn-danger m-t-n-xs" style="margin-bottom: 0px; color: white !important"
+                        data-dismiss="">Xóa dữ liệu</button>
+            </div>
+        </div>
+</div>
+<script>
+    var iconFeature = new ol.Feature({
+        geometry: new ol.geom.Point([0, 0]),
+        name: 'Null Island',
+        population: 4000,
+        rainfall: 500
+    });
+
+    var iconStyle = new ol.style.Style({
+        image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+            anchor: [0.5, 46],
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            src: 'http://openlayers.org/en/v3.18.2/examples/data/icon.png'
+        }))
+    });
+
+    iconFeature.setStyle(iconStyle);
+
+    var vectorSource = new ol.source.Vector({
+        features: [iconFeature]
+    });
+
+    var vectorLayer = new ol.layer.Vector({
+        source: vectorSource
+    });
+
+    var rasterLayer = new ol.layer.Tile({
+        source: new ol.source.TileJSON({
+            url: 'https://api.tiles.mapbox.com/v3/mapbox.geography-class.json?secure',
+            crossOrigin: ''
+        })
+    });
+
+    var map = new ol.Map({
+        layers: [rasterLayer, vectorLayer],
+        target: document.getElementById('map'),
+        view: new ol.View({
+            center: [0, 0],
+            zoom: 3
+        })
+    });
+
+    var element = document.getElementById('popup');
+
+    var popup = new ol.Overlay({
+        element: element,
+        positioning: 'bottom-center',
+        stopEvent: false,
+        offset: [0, -50]
+    });
+    map.addOverlay(popup);
+
+    // display popup on click
+    map.on('click', function(evt) {
+        var feature = map.forEachFeatureAtPixel(evt.pixel,
+                function(feature) {
+                    return feature;
+                });
+        if (feature) {
+            var coordinates = feature.getGeometry().getCoordinates();
+            popup.setPosition(coordinates);
+            $(element).popover({
+                'placement': 'top',
+                'html': true,
+                'content': feature.get('name'),
+                'template':"<div class='popover' role='tooltip'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'><a href='aaa'>aaaaa</a><button>bbbb</button></div></div>"
+            });
+            $(element).popover('show');
+        } else {
+            $(element).popover('destroy');
+        }
+    });
+
+    // change mouse cursor when over marker
+    map.on('pointermove', function(e) {
+        if (e.dragging) {
+            $(element).popover('destroy');
+            return;
+        }
+        var pixel = map.getEventPixel(e.originalEvent);
+        var hit = map.hasFeatureAtPixel(pixel);
+        map.getTarget().style.cursor = hit ? 'pointer' : '';
+    });
+</script>
+</body>
+</html>
